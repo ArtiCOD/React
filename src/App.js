@@ -1,23 +1,19 @@
-import logo from './logo.svg';
+
+import { useState } from 'react';
 import './App.css';
+import { Message } from './components/Message';
+import { User } from './components/User'
+import { Cart } from './components/Cart'
 
 function App() {
+  const [userName, setUserName] = useState('alex')
+  const [cartWidth,setCartWidth] = useState(10)
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Message userName="Papanya" changeName={setUserName} />
+      <Message userName={userName} secondName='petrov' />
+      <User></User>
+      <Cart width={cartWidth} changeWidth={setCartWidth}>tovar</Cart>
     </div>
   );
 }
