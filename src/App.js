@@ -1,25 +1,32 @@
-import logo from './logo.svg';
-import './App.css';
+import { useEffect, useState } from "react"
+import { MessageList } from "./components/MessageList/MessageList"
+import { Form } from "./components/Form/Form"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+export function App() {
+
+    const [messages, setMessages] = useState([])
+    const addMesage = (newMessage) => {
+        setMessages([...messages, newMessage])
+    }
+    useEffect(() => {
+        if(messages.length > 0 && messages[messages.length - 1].author === 'user') {
+          const timeOut = setTimeout(() => {
+                addMesage({
+                    author: 'BOT',
+                    text: 'I AM BOT'
+                })
+            }, 1500)
+            return () => {
+                clearTimeout = {timeOut}
+             }
+        }
+        
+    }, [messages])
+    return (
+        <>
+            <h1>Welcome to chat</h1>
+            <Form addMesage={addMesage}></Form>
+            <MessageList messages={messages}></MessageList>
+        </>
+    )
 }
-
-export default App;
