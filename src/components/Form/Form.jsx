@@ -1,5 +1,5 @@
 import { useState } from "react"
-import { Button } from "../ui/Button.jsx"
+import Button from '@mui/material/Button'
 
 export function Form({ addMesage }) {
 
@@ -20,10 +20,15 @@ export function Form({ addMesage }) {
                 <input
                     type="text"
                     value={text}
+                    autoFocus={true}
                     onChange={(event) => setText(event.target.value)}
                 />
-                <Button type="submit">Add Messages</Button>
+                <Button type="submit" variant="contained">Add message</Button>
+
+                {/* <Button type="submit">Add Messages</Button> */}
+
             </form>
+
         </>
     )
 }
