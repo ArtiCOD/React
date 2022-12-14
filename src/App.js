@@ -1,21 +1,32 @@
+import { useEffect, useState } from "react"
+import { MessageList } from "./components/MessageList/MessageList"
+import { Form } from "./components/Form/Form"
 
-import { useState } from 'react';
-import './App.css';
-import { Message } from './components/Message';
-import { User } from './components/User'
-import { Cart } from './components/Cart'
+export function App() {
 
-function App() {
-  const [userName, setUserName] = useState('alex')
-  const [cartWidth,setCartWidth] = useState(10)
-  return (
-    <div className="App">
-      <Message userName="Papanya" changeName={setUserName} />
-      <Message userName={userName} secondName='petrov' />
-      <User></User>
-      <Cart width={cartWidth} changeWidth={setCartWidth}>tovar</Cart>
-    </div>
-  );
+    const [messages, setMessages] = useState([])
+    const addMesage = (newMessage) => {
+        setMessages([...messages, newMessage])
+    }
+    useEffect(() => {
+        if(messages.length > 0 && messages[messages.length - 1].author === 'user') {
+          const timeOut = setTimeout(() => {
+                addMesage({
+                    author: 'BOT',
+                    text: 'I AM BOT'
+                })
+            }, 1500)
+            return () => {
+                clearTimeout = {timeOut}
+             }
+        }
+        
+    }, [messages])
+    return (
+        <>
+            <h1>Welcome to chat</h1>
+            <Form addMesage={addMesage}></Form>
+            <MessageList messages={messages}></MessageList>
+        </>
+    )
 }
-
-export default App;
