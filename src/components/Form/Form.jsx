@@ -1,5 +1,6 @@
 import { useState } from "react"
-import Button from '@mui/material/Button'
+import { Button } from "../ui/Button"
+// import Button from '@mui/material/Button'
 
 export function Form({ addMesage }) {
 
@@ -23,9 +24,9 @@ export function Form({ addMesage }) {
                     autoFocus={true}
                     onChange={(event) => setText(event.target.value)}
                 />
-                <Button type="submit" variant="contained">Add message</Button>
+                {/* <Button type="submit" variant="contained">Add message</Button> */}
 
-                {/* <Button type="submit">Add Messages</Button> */}
+                <Button type="submit">Add Messages</Button>
 
             </form>
 
