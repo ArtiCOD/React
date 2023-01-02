@@ -1,32 +1,20 @@
-import { useEffect, useState } from "react"
-import { MessageList } from "./components/MessageList/MessageList"
-import { Form } from "./components/Form/Form"
+import { Routes, Route } from 'react-router-dom'
+import { Header } from './components/Header/Header'
+import { Main } from './pages/Main'
+import { Chat } from './pages/Chat'
+import { Profile } from './pages/Profile'
 
 export function App() {
-
-    const [messages, setMessages] = useState([])
-    const addMesage = (newMessage) => {
-        setMessages([...messages, newMessage])
-    }
-    useEffect(() => {
-        if(messages.length > 0 && messages[messages.length - 1].author === 'user') {
-          const timeOut = setTimeout(() => {
-                addMesage({
-                    author: 'BOT',
-                    text: 'I AM BOT'
-                })
-            }, 1500)
-            return () => {
-                clearTimeout = {timeOut}
-             }
-        }
-        
-    }, [messages])
     return (
         <>
-            <h1>Welcome to chat</h1>
-            <Form addMesage={addMesage}></Form>
-            <MessageList messages={messages}></MessageList>
+            <Routes>
+                <Route path='/' element={<Header />}>
+                    <Route index element={<Main />}></Route>
+                    <Route path='Chats' element={<Chat />}></Route>
+                    <Route path='Profile' element={<Profile />}></Route>
+                </Route>
+            </Routes>
+            {/* <Header /> */}
         </>
     )
 }
