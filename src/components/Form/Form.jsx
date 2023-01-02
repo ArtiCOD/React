@@ -1,35 +1,67 @@
-import { useState } from "react"
-import { Button } from "../ui/Button"
-// import Button from '@mui/material/Button'
+import PropTypes from 'prop-types'
+import { useState } from 'react'
+import { AUTHOR } from '../../constants'
+import {Button} from '../ui/Button'
+import { useDispatch } from 'react-redux'
+import { addMessage } from '../../store/messages/actions'
+import { useParams } from 'react-router-dom'
+// import IButton from '@mui/material/Button';
+// import ITextField from '@mui/material/TextField';
 
-export function Form({ addMesage }) {
+// import styles from './Form.module.css'
 
-    const [text, setText] = useState('')
-    const handleSubmit = (event) => {
-        event.preventDefault()
-        addMesage({
-            author: 'user',
-            text
-        })
-        setText('')
-    }
+export function Form() {
+  const [text, setText] = useState('')
+  const dispatch = useDispatch()
+  const { chatId } = useParams()
 
-    return (
-        <>
-            <h1>Form</h1>
-            <form onSubmit={handleSubmit}>
-                <input
-                    type="text"
-                    value={text}
-                    autoFocus={true}
-                    onChange={(event) => setText(event.target.value)}
-                />
-                {/* <Button type="submit" variant="contained">Add message</Button> */}
+  const handleSubmit = (e) => {
+    e.preventDefault()
+    //todo...
+    // addMessage({
+    //   author: AUTHOR.user,
+    //   text
+    // })
+    dispatch(addMessage(chatId, text))
 
-                <Button type="submit">Add Messages</Button>
+    setText('')
+  }
 
-            </form>
+  // console.log('input', text)
+  
+  return (
+    <>
+      <h1>Form</h1>
+      <form onSubmit={handleSubmit}>
+        <input 
+          type="text"
+          value={text}
+          onChange={(event) => setText(event.target.value)}
+        />
+          {/* <Button type="submit" render={() => <span>BUTTON</span>}>Add message</Button> */}
+          <Button type="submit">Add message</Button>
+        {/* <ITextField 
+          id="standard-basic"
+          label="Enter message"
+          variant="standard"
+          type="text"
+          onChange={(event) => setText(event.target.value)}
+          value={text}
+        /> */}
+        {/* <IButton 
+          variant="contained" 
+          color="success" 
+          size="small"
+          type="submit"
+        >
+          Add message
+        </IButton> */}
+      </form>
+      
+    </>
+  )
+}
 
-        </>
-    )
+Form.propTypes = {
+  addMessage: PropTypes.func
 }
