@@ -1,42 +1,55 @@
-import { Outlet, Link } from "react-router-dom"
-import styles from "./Header.module.css"
-export const navigate = [
-    {
-        id: 1,
-        name: 'Main',
-        to: '/'
-    },
-    {
-        id: 2,
-        name: 'Profile',
-        to: '/profile'
-    },
-    {
-        id: 3,
-        name: 'Chat',
-        to: '/chats'
-    },
-]
-export function Header() {
-    return (
-        <>
-            <header>
-                <nav className={styles.header}>
-                    <ul>
-                        {navigate.map((link) => (
-                            <li key={link.id}>
-                                <Link to={link.to}>
-                                    {link.name}
-                                </Link>
-                            </li>
-                        ))}
-                    </ul>
-                </nav>
-            </header>
-            <main>
-                <Outlet></Outlet>
-            </main>
-        </>
+import { Outlet, Link, NavLink } from 'react-router-dom'
 
-    )
+import { useSelector } from 'react-redux'
+
+import styles from './Header.module.css'
+
+export const navigate = [
+  {
+    id: 1,
+    name: 'Main',
+    to: '/'
+  },
+  {
+    id: 2,
+    name: 'Profile',
+    to: '/profile'
+  },
+  {
+    id: 3,
+    name: 'Chat',
+    to: '/chats'
+  },
+]
+
+export function Header() {
+
+  const name = useSelector((store) => store.name)
+
+  return (
+    <>
+      <header>
+        <nav className={styles.header}>
+          <ul>
+            {navigate.map((link) => (
+              <li key={link.id}>
+              <NavLink 
+                to={link.to}
+                style={({ isActive }) => ({
+                  color: isActive ? 'green' : 'blue'
+                })}
+              >
+                {link.name}
+              </NavLink>
+            </li>
+            ))}
+          </ul>
+        <p>{name}</p>
+        </nav>
+      </header>
+      <main>
+        <Outlet/>
+      </main>
+    </>
+  )
 }
